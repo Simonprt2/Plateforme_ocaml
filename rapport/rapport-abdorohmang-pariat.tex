@@ -1,0 +1,169 @@
+\documentclass{article}
+
+\usepackage[english]{babel}
+\usepackage{hyperref}
+\usepackage{pgfgantt}
+\usepackage{graphicx}
+
+\title{
+    Rapport de Projet Long 2025\\
+    M1 Informatique\\
+    Université Paris Cité
+}
+\author{Mathaui Yves Abdorohmang, Simon Pariat}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+\subsection{Objectif du projet}
+
+L'objectif du projet est de développer un jeu dans un cadre "non trivial",
+c'est-à-dire ici dans un langage de programmation fonctionnel.
+
+Le joueur sera amené à contrôler un personnage et à franchir des niveaux.
+
+On sera donc sur un jeu de plateforme inspiré de \textit{Shovel Knight}, qui propose un gameplay fluide, avec des mécaniques classiques de plateforme et avec des graphismes en pixel art.
+
+\subsection{Présentation du jeu}
+Le jeu sur lequel nous nous appuierons est \href{https://fr.wikipedia.org/wiki/Shovel_Knight}{Shovel Knight}, sorti en 2013.
+C'est un jeu en 2D indépendant de plateforme où l'on y incarne un chevalier, armé de sa pelle
+qu'il utilise à la fois pour collecter des ressources et pour se défendre des ennemis.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{image.png}
+    \caption{Le gameplay de Shovel Knight.}
+    \label{fig:example}
+\end{figure}
+
+\subsection{Métriques de succès}
+
+Pour décider de si le projet a été abouti, nous nous focaliserons sur les points suivants :
+\begin{itemize}
+    \item Fonctionnalités de base implémentées : ennemis basiques, déplacements, sauts, attaques.
+    \item Performance : jeu fluide (60 FPS).
+    \item Gameplay un minimum correct : au moins un niveau jouable comportant ennemis et obstacles sur une map décorée.
+    \item Stabilité du jeu : Les erreurs critiques seront identifiées et corrigées.
+\end{itemize}
+
+\section{Implémentation}
+
+\subsection{Réalisation du projet}
+Le projet est réalisé en très grande partie avec OCaml. Il est couplé avec
+\href{https://www.raylib.com}{Raylib}\footnote{Pour OCaml Raylib, voir plutôt \url{https://github.com/tjammer/raylib-ocaml}}, une librairie graphique particulièrement optimisée pour la création d'un tel jeu. C'est une librairie connue
+qui comporte des bindings dans une multitude de langages.
+
+Les sprites ont été téléchargées \href{https://www.spriters-resource.com/pc_computer/shovelknight/}{ici}, même si le site ne contient pas l'intégralité des sprites attendues.
+
+Le versionning est géré par Git et Visual Studio Code est utilisé comme IDE.
+
+\subsection{Logiciel déjà codé}
+Pour le moment, nous disposons d'un jeu simple en terrain plat, contenant:
+\begin{itemize}
+    \item \textbf{Gestion des niveaux} : nous avons un parser JSON permettant de pouvoir créer un niveau à partir d'un fichier.
+    \item \textbf{Modèle physique} : il y a une simulation de la gravité, avec collisions et mouvements.
+    \item \textbf{Entités du jeu} : divers entités comme le personnage, ennemis et objets interactifs qui sont présents.
+    \item \textbf{Rendu graphique} : Affichage graphique du niveau souhaité.
+\end{itemize}
+
+\subsection{Architecture du projet}
+
+Le projet est subdivisé en une multitude de modules dans le but d'avoir une 
+aisance avec la maintenabilité ainsi qu'une meilleure organisation. En voici quelques uns:
+\begin{itemize}
+    \item \textbf{Types} : Contient tous les types propres au jeu et au gameplay: (map, entités, blocs, etc.)
+    \item \textbf{Camera} :  Contient les fonctions caractéristiques à la caméra du jeu.
+    \item \textbf{Texture} : Gère les sprites, textures du jeu (personnages, blocs par exemple).
+    \item \textbf{Object} :  pour les objets que le personnage peut récupérer
+    \item \textbf{Levelhandler} : pour le chargement d'un niveau depuis un fichier JSON.
+\end{itemize}
+
+\subsection{Représentation des données}
+
+Dans le jeu, les données sont représentés par des types propres à OCaml.
+
+Les types caractérisés par deux flottants (caméra, position, vitesse) sont représentés par un enregistrement (record)
+avec comme première composante x et deuxième composante y.
+
+Des types algébriques sont utilisés pour les blocs, ennemis, par exemple, afin d'assurer le polymorphisme.
+
+Une map est caractérisée par une grille de dimensions m*n. Chaque élément est un bloc avec des attributs qui lui sont associés (sprite, position, type du bloc, etc).
+
+L'unité de mesure employé dans le cadre des coordonnées dans le plan est le bloc.
+En effet, le jeu original est en 25*13 blocs, et on a réussi à avoir un jeu en plein écran
+avec des dimensions s'en rapprochant. Cela est notamment utile car la majorité des entités 
+(si ce n'est) ont des tailles en nombre de blocs.
+
+\subsection{Technologies utilisées}
+Notre code s'appuie sur les technologies suivantes: 
+
+\begin{itemize}
+    \item \textbf{OCaml} : (version 5.2.1) Langage de programmation phare durant ce projet.
+    \item \textbf{Raylib} : Bibliothèque pour le rendu graphique, événements clavier, son.
+    \item \textbf{JSON} : Format pour la configuration des niveaux à partir d'un fichier.
+    \item \textbf{Tiled} : Logiciel pour bénéficier d'une interface pour créer les maps.
+    \item \textbf{Photopea} : Site pour supprimer les fonds verts des sprites.
+    \item \textbf{Git} : Pour le versionning du projet.
+\end{itemize}
+
+\section{Jalons}
+
+\subsection{Tâches à réaliser}
+\begin{itemize}
+    \item IA des ennemis.
+    \item Création de menus (pause, titre, game over).
+    \item Ajout de nouveaux niveaux.
+    \item Tests unitaires
+\end{itemize}
+
+\subsection{Organisation temporelle des tâches}
+
+\begin{ganttchart}[
+    vgrid,
+    hgrid,
+    time slot format=isodate,
+    x unit=0.07cm,
+    y unit title=0.5cm,
+    y unit chart=0.7cm,
+    title height=1,
+    title/.append style={fill=none},
+    bar/.append style={fill=blue!30},
+    bar height=0.6,
+    group right shift=0,
+    group top shift=0.7,
+    group height=.3,
+    group peaks width={0.2},
+    milestone/.append style={fill=red!30}
+]{2024-11-28}{2025-05-10}
+
+  \gantttitlecalendar{year, month=name} \\
+
+  \ganttbar{Modélisation types}{2024-11-28}{2024-12-07} \\
+  \ganttbar{Fenêtre correcte}{2024-12-06}{2025-02-01} \\
+  \ganttbar{Mouvement/collision/sauts}{2025-01-15}{2025-01-30} \\
+  \ganttbar{Déplacements}{2024-12-22}{2025-01-15} \\
+  \ganttbar{Effet caméra}{2025-01-28}{2025-02-07} \\
+  \ganttbar{Objets}{2025-02-06}{2025-02-10} \\
+  \ganttbar{Ennemis}{2025-02-11}{2025-03-15} \\
+  \ganttbar{Création niveau}{2025-02-13}{2025-03-20} \\
+  \ganttbar{Textures}{2025-01-20}{2025-02-07} \\
+  \ganttbar{Attaques}{2025-03-06}{2025-03-31} \\
+  \ganttbar{Styliser le jeu}{2025-04-01}{2025-04-20} \\
+  \ganttbar{Création autre niveau}{2025-04-15}{2025-05-10} \\
+
+\end{ganttchart}
+
+
+
+\subsection{Tâches terminées}
+\begin{itemize}
+    \item Moteur de rendu et affichage des sprites.
+    \item Gestions des événements clavier.
+    \item Détection des collisions 
+    \item Déplacements des personnages
+\end{itemize}
+
+\end{document}
