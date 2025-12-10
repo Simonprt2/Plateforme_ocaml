@@ -1,0 +1,4 @@
+(library
+ (name shovelknight)
+ (libraries raylib yojson)
+ (modules_without_implementation types))

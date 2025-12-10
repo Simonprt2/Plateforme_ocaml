@@ -1,0 +1,4 @@
+(executable
+ (public_name shovelknight)
+ (name main)
+ (libraries raylib shovelknight))
