@@ -1,0 +1,25 @@
+(test
+ (name test_core)
+ (libraries qcheck shovelknight alcotest qcheck-alcotest))
+
+
+(test
+ (name generators)
+ (libraries qcheck shovelknight alcotest qcheck-alcotest))
+
+
+(test
+ (name test_enemies)
+ (libraries qcheck shovelknight alcotest qcheck-alcotest))
+
+(test
+ (name test_entities)
+ (libraries qcheck shovelknight alcotest qcheck-alcotest))
+
+(test
+ (name test_objects)
+ (libraries qcheck shovelknight alcotest qcheck-alcotest))
+
+(test
+ (name test_player)
+ (libraries qcheck shovelknight alcotest qcheck-alcotest))
